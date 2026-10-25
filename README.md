@@ -1,2 +1,2 @@
-# linuxOS-Notes
+# LinuxOS-Notes
 Linux  learning notes and handbook

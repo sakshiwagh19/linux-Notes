@@ -202,6 +202,111 @@ System-wide umask settings may be configured in files such as `/etc/profile` or 
 Administrative privileges may be required.
 
 ---
+# Command for set permanent umask value
+
+# Linux umask – Permanent Configuration
+
+## 1. Particular User: Permanent umask
+
+Example: Set umask to `0027` for the current user.
+
+### Step 1: Check the current user
+```bash
+whoami
+```
+
+### Step 2: Open the user's profile file
+```bash
+vi ~/.bash_profile
+```
+
+### Step 3: Add this line at the end
+```bash
+umask 0027
+```
+
+Save and exit: Press `Esc`, type `:wq`, and press `Enter`.
+
+### Step 4: Apply the changes immediately
+```bash
+source ~/.bash_profile
+```
+
+### Step 5: Verify the umask
+```bash
+umask
+```
+
+Expected output:
+```text
+0027
+```
+
+**Note:** `source` applies the setting to the current shell immediately. Alternatively, log out and log in again.
+
+---
+
+## 2. All Users: Permanent umask
+
+Example: Set umask to `0027` for all users' login shells.
+
+### Step 1: Get root privileges
+```bash
+sudo -i
+```
+
+### Step 2: Open the system-wide profile file
+```bash
+vi /etc/profile
+```
+
+### Step 3: Add this line at the end
+```bash
+umask 0027
+```
+
+Save and exit: Press `Esc`, type `:wq`, and press `Enter`.
+
+### Step 4: Exit the root shell
+```bash
+exit
+```
+
+### Step 5: Log out and log in again
+
+The `/etc/profile` file is automatically loaded when a new login shell starts.
+
+### Step 6: Verify the umask
+```bash
+umask
+```
+
+Expected output:
+```text
+0027
+```
+
+**Note:** You can also run `source /etc/profile` to apply its commands to the current shell. However, this does not change other users' already-running shells.
+
+---
+
+##  Quick Comparison
+
+| Particular User | All Users |
+|---|---|
+| `~/.bash_profile` | `/etc/profile` |
+| `vi ~/.bash_profile` | `sudo vi /etc/profile` |
+| `source ~/.bash_profile` | Log out and log in again |
+| Applies to one user | Applies to login shells for all users |
+| Root access usually not required | Root privileges required to edit |
+
+##  Remember
+
+- `umask` controls the default permissions of newly created files and directories.
+- `source` applies commands immediately in the current shell.
+- `sudo -i` opens a root login shell.
+- `/etc/profile` applies to login shells; user-specific settings can override it.
+
 
 ## 4. chmod Command
 

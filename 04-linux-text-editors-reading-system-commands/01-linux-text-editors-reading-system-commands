@@ -1,0 +1,356 @@
+### 1\. Linux Text Editors
+
+Linux provides text editors to create, view, and edit files directly from the terminal.
+
+* Vim – A command-line text editor used to create and edit files.
+
+* Nano – A simple and user-friendly command-line text editor.
+
+### 2\. Vim Editor
+
+Meaning: The `vim` command opens a file in the Vim text editor. It is used to create and edit files in Linux.
+
+Syntax:
+
+```bash
+vim filename
+```
+
+Example:
+
+```bash
+vim devops.txt
+```
+
+Important Vim Commands:
+
+| Command | Purpose                         |
+| ------- | ------------------------------- |
+| i       | Enter Insert Mode to write text |
+| Esc     | Return to Normal Mode           |
+| :w      | Save the file                   |
+| :q      | Exit the editor                 |
+| :wq     | Save and exit                   |
+| :q!     | Exit without saving changes     |
+| dd      | Delete the current line         |
+| yy      | Copy the current line           |
+| p       | Paste the copied line           |
+
+### 3\. Nano Editor
+
+Meaning: The `nano` command opens a simple text editor in the terminal. It is easy to use for beginners.
+
+Syntax:
+
+```bash
+nano filename
+```
+
+Example:
+
+```bash
+nano devops.txt
+```
+
+Important Nano Shortcuts:
+
+| Shortcut | Purpose              |
+| -------- | -------------------- |
+| Ctrl + O | Save the file        |
+| Ctrl + X | Exit Nano            |
+| Ctrl + K | Cut the current line |
+| Ctrl + U | Paste the cut text   |
+| Ctrl + W | Search for text      |
+
+### 4\. Linux Text Reading Commands
+
+### 4.1 echo Command
+
+Meaning: Displays text or messages on the terminal.
+
+Syntax:
+
+```bash
+echo "message"
+```
+
+Example:
+
+```bash
+echo "Hello Linux"
+```
+
+### 4.2 cat Command
+
+Meaning: Displays the complete contents of a file. It can also be used to create files and combine file contents.
+
+Syntax:
+
+```bash
+cat filename
+```
+
+Example:
+
+```bash
+cat devops.txt
+```
+
+### 4.3 head Command
+
+Meaning: Displays the first 10 lines of a file by default.
+
+Syntax:
+
+```bash
+head filename
+```
+
+Example:
+
+```bash
+head -n 5 devops.txt
+```
+
+Displays the first 5 lines of the file.
+
+### 4.4 tail Command
+
+Meaning: Displays the last 10 lines of a file by default.
+
+Syntax:
+
+```bash
+tail filename
+```
+
+Example:
+
+```bash
+tail -n 5 devops.txt
+```
+
+Displays the last 5 lines of the file.
+
+### 4.5 grep Command
+
+Meaning: Searches for a specific word or pattern in a file.
+
+Syntax:
+
+```bash
+grep "word" filename
+```
+
+Example:
+
+```bash
+grep "Linux" devops.txt
+```
+
+Displays the lines containing the word Linux.
+
+### 5\. Pipe Command ( | )
+
+Meaning: The pipe operator sends the output of one command as input to another command.
+
+Syntax:
+
+```bash
+command1 | command2
+```
+
+Example:
+
+```bash
+cat devops.txt | grep "Linux"
+```
+
+Displays only the lines containing the word Linux from the file.
+
+### 6\. sed Command
+
+Meaning: The `sed` command is used to search, replace, and modify text in a file.
+
+Syntax:
+
+```bash
+sed 's/old/new/' filename
+```
+
+Examples:
+
+1\. Replace the first occurrence in each line:
+
+```bash
+sed 's/old/new/' devops.txt
+```
+
+2\. Replace all occurrences in each line:
+
+```bash
+sed 's/old/new/g' devops.txt
+```
+
+3\. Modify the original file directly:
+
+```bash
+sed -i 's/old/new/g' devops.txt
+```
+
+### 7\. Linux System Information Commands
+
+These commands are used to check logged-in users, system details, disk usage, network information, and system activity.
+
+| Command  | Purpose                                               |
+| -------- | ----------------------------------------------------- |
+| who      | Displays currently logged-in users                    |
+| who -H   | Displays logged-in users with headings                |
+| w        | Displays logged-in users and their activities         |
+| users    | Displays logged-in usernames                          |
+| whoami   | Displays the current username                         |
+| date     | Displays current date and time                        |
+| df -h    | Displays disk space usage in human-readable format    |
+| du -h    | Displays file and directory space usage               |
+| hostname | Displays the system hostname                          |
+| ip a     | Displays IP address and network interface information |
+| uptime   | Displays system running time and load average         |
+| last     | Displays previous login sessions                      |
+
+### 8\. uptime Command
+
+Meaning: The `uptime` command displays how long the Linux system has been running since its last boot.
+
+Syntax:
+
+```bash
+uptime
+```
+
+Information Displayed:
+
+* Current system time.
+
+* System running time.
+
+* Number of logged-in users.
+
+* Load average for 1, 5, and 15 minutes.
+
+Example:
+
+```bash
+uptime
+```
+
+### 9\. CPU Information
+
+Meaning: Linux stores CPU-related information in the `/proc/cpuinfo` file.
+
+Command:
+
+```bash
+cat /proc/cpuinfo
+```
+
+Purpose:
+
+* Displays CPU model information.
+
+* Displays processor details.
+
+* Displays CPU cores and other CPU-related information.
+
+### 10\. Quick Revision – Linux Commands
+
+| Command | Purpose                                  |
+| ------- | ---------------------------------------- |
+| vim     | Edit files using Vim                     |
+| nano    | Edit files using Nano                    |
+| echo    | Display text                             |
+| cat     | Display file contents                    |
+| head    | Display the first lines                  |
+| tail    | Display the last lines                   |
+| grep    | Search for text                          |
+| sort    | Sort lines alphabetically or numerically |
+| tr      | Translate or delete characters           |
+| sed     | Search and replace text                  |
+| man     | Display command manual                   |
+| whatis  | Display a short command description      |
+| whereis | Locate binary, source, and manual files  |
+
+### 11\. Linux Practice Commands
+
+Practice these commands step by step in the Linux terminal.
+
+Step 1: Display a message and create a file
+
+```bash
+echo "Linux practice" > devops.txt
+```
+
+Step 2: Display file contents
+
+```bash
+cat devops.txt
+```
+
+Step 3: Copy the file
+
+```bash
+cp devops.txt backup.txt
+```
+
+Step 4: Display the first lines
+
+```bash
+head devops.txt
+```
+
+Step 5: Display the last lines
+
+```bash
+tail devops.txt
+```
+
+Step 6: Search for a word
+
+```bash
+grep "Linux" devops.txt
+```
+
+Step 7: Sort file contents
+
+```bash
+sort devops.txt
+```
+
+Step 8: Count lines, words, and characters
+
+```bash
+wc devops.txt
+```
+
+Step 9: Display date and time
+
+```bash
+date
+```
+
+Step 10: Display current username
+
+```bash
+whoami
+```
+
+Step 11: Display system hostname
+
+```bash
+hostname
+```
+
+Step 12: Check system uptime
+
+```bash
+uptime
+```

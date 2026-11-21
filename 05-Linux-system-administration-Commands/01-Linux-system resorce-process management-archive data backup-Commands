@@ -1,0 +1,1086 @@
+````markdown
+# Linux System Administration Commands
+
+## Table of Contents
+
+1. [System Resource Commands](#1-system-resource-commands)
+2. [User Management Commands](#2-user-management-commands)
+3. [Disk Management Commands](#3-disk-management-commands)
+4. [Hostname and IP Address Commands](#4-hostname-and-ip-address-commands)
+5. [Linux Help and Documentation Commands](#5-linux-help-and-documentation-commands)
+6. [Service Management Commands](#6-service-management-commands)
+7. [Process Management Commands](#7-process-management-commands)
+8. [Archive and Backup Commands](#8-archive-and-backup-commands)
+
+---
+
+# 1. System Resource Commands
+
+System resource commands are used to check system information, logged-in users, disk usage, hostname, date and time, and system uptime.
+
+## 1.1 `who`
+
+**Definition:** Displays the users currently logged in to the system.
+
+**Command:**
+```bash
+who
+````
+
+Example Output:
+
+```text
+ec2-user  pts/0  2026-11-20 10:30
+```
+
+Display column headings:
+
+```bash
+who -H
+```
+
+### 1.2 `w`
+
+Definition: Displays who is logged in and what they are currently doing.
+
+Command:
+
+```bash
+w
+```
+
+It displays:
+
+* Username
+
+* Terminal
+
+* Login time
+
+* Idle time
+
+* Current activity
+
+* System load average
+
+### 1.3 `users`
+
+Definition: Displays a compact list of usernames currently logged in to the system.
+
+Command:
+
+```bash
+users
+```
+
+Example Output:
+
+```text
+ec2-user ubuntu
+```
+
+### 1.4 `whoami`
+
+Definition: Displays the username of the currently logged-in user executing the command.
+
+Command:
+
+```bash
+whoami
+```
+
+Example Output:
+
+```text
+ec2-user
+```
+
+### 1.5 `whereis`
+
+Definition: Locates the binary, source code, and manual page files of a command.
+
+Syntax:
+
+```bash
+whereis command_name
+```
+
+Example:
+
+```bash
+whereis mkdir
+```
+
+Example Output:
+
+```text
+mkdir: /usr/bin/mkdir /usr/share/man/man1/mkdir.1.gz
+```
+
+### 1.6 `date`
+
+Definition: Displays or sets the system date and time.
+
+Display current date and time:
+
+```bash
+date
+```
+
+Display date in a specific format:
+
+```bash
+date "+%d-%m-%Y"
+```
+
+Set date and time (requires appropriate privileges):
+
+```bash
+sudo date -s "2026-11-20 10:30:00"
+```
+
+### 1.7 `df`
+
+Definition: Reports file system disk space usage.
+
+Command:
+
+```bash
+df
+```
+
+Human-readable format:
+
+```bash
+df -h
+```
+
+It displays:
+
+* Total disk space
+
+* Used disk space
+
+* Available disk space
+
+* Usage percentage
+
+* Mounted filesystem
+
+Check a particular filesystem:
+
+```bash
+df -h /
+```
+
+### 1.8 `du`
+
+Definition: Estimates disk space usage of a particular directory or file.
+
+Display directory usage:
+
+```bash
+du ~
+```
+
+Display all subdirectory sizes:
+
+```bash
+du -h ~
+```
+
+Display only summary:
+
+```bash
+du -sh ~
+```
+
+Options:
+
+* `-s` – Displays only the summary.
+
+* `-h` – Displays size in human-readable format.
+
+Example:
+
+```bash
+du -sh /home/ec2-user
+```
+
+Example Output:
+
+```text
+68K    /home/ec2-user
+```
+
+### 1.9 `hostname`
+
+Definition: Displays or sets the system hostname.
+
+Display hostname:
+
+```bash
+hostname
+```
+
+Set hostname temporarily:
+
+```bash
+sudo hostname new-hostname
+```
+
+Display hostname as an IP address:
+
+```bash
+hostname -i
+```
+
+### 1.10 `ifconfig` and `ip a`
+
+Definition: Used to display network interface information and IP addresses.
+
+Using ifconfig:
+
+```bash
+ifconfig
+```
+
+Using the modern Linux command:
+
+```bash
+ip a
+```
+
+It displays:
+
+* Network interfaces
+
+* IPv4 addresses
+
+* IPv6 addresses
+
+* Interface status
+
+> Note: If `ifconfig` is unavailable, install the `net-tools` package or use `ip a`.
+
+### 1.11 `man`
+
+Definition: Displays manual pages containing detailed documentation about Linux commands.
+
+Syntax:
+
+```bash
+man command_name
+```
+
+Example:
+
+```bash
+man mkdir
+```
+
+To exit the manual page, press:
+
+```text
+q
+```
+
+### 1.12 `info`
+
+Definition: Displays detailed documentation about a command using the Info documentation system.
+
+Example:
+
+```bash
+info mkdir
+```
+
+### 1.13 `--help`
+
+Definition: Displays a short help message containing available options and usage of a command.
+
+Example:
+
+```bash
+mkdir --help
+```
+
+### 1.14 `whatis`
+
+Definition: Displays a short description of a specified Linux command.
+
+Example:
+
+```bash
+whatis mkdir
+```
+
+Example Output:
+
+```text
+mkdir (1) - make directories
+```
+
+### 1.15 `service`
+
+Definition: Used to check and manage system services.
+
+Syntax:
+
+```bash
+sudo service service_name status
+sudo service service_name start
+sudo service service_name stop
+sudo service service_name restart
+```
+
+Example:
+
+```bash
+sudo service sshd status
+```
+
+### 1.16 `systemctl list-unit-files`
+
+Definition: Displays installed systemd unit files, including service unit files.
+
+Command:
+
+```bash
+systemctl list-unit-files
+```
+
+Display only service unit files:
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+### 1.17 `uptime`
+
+Definition: Displays how long the system has been running since its last boot.
+
+Command:
+
+```bash
+uptime
+```
+
+It displays:
+
+* Current time
+
+* System uptime
+
+* Number of logged-in users
+
+* Load average
+
+Example Output:
+
+```text
+10:30:00 up 3 days, 2 users, load average: 0.10, 0.20, 0.15
+```
+
+### Understanding Load Average
+
+Load average displays the average system load over three time intervals:
+
+* First value: Last 1 minute
+
+* Second value: Last 5 minutes
+
+* Third value: Last 15 minutes
+
+Example:
+
+```text
+load average: 1.50, 2.00, 2.11
+```
+
+Load average represents the number of processes running or waiting for CPU time and, on Linux, certain uninterruptible tasks.
+
+### 1.18 `last`
+
+Definition: Displays a list of previously logged-in users.
+
+Command:
+
+```bash
+last
+```
+
+It displays:
+
+* Username
+
+* Login terminal
+
+* Login time
+
+* Logout time
+
+* Login source IP address (when available)
+
+### 2\. User Management Commands
+
+These commands help us identify users who are currently logged in and understand their login activities.
+
+### 2.1 Check how many users are currently logged in
+
+```bash
+who
+```
+
+### 2.2 Display headings with user information
+
+```bash
+who -H
+```
+
+### 2.3 Display detailed information about logged-in users
+
+```bash
+w
+```
+
+### 2.4 Display only usernames
+
+```bash
+users
+```
+
+### 2.5 Display the current username
+
+```bash
+whoami
+```
+
+### 2.6 Display previous login information
+
+```bash
+last
+```
+
+### 3\. Disk Management Commands
+
+Disk management commands are used to check how much disk space is available and how much storage is being utilized.
+
+### 3.1 `df` – Disk Free
+
+Definition: Displays how much disk space is available and utilized in the filesystem.
+
+Command:
+
+```bash
+df
+```
+
+Human-readable format:
+
+```bash
+df -h
+```
+
+Check a particular filesystem:
+
+```bash
+df -h /
+```
+
+### 3.2 `du` – Disk Usage
+
+Definition: Displays how much disk space is utilized by a particular directory or file.
+
+Check directory size:
+
+```bash
+du ~
+```
+
+Display all subdirectory sizes:
+
+```bash
+du -h ~
+```
+
+Display only summary:
+
+```bash
+du -sh ~
+```
+
+Example:
+
+```bash
+du -sh /home/ec2-user
+```
+
+Example Output:
+
+```text
+68K    /home/ec2-user
+```
+
+### Difference Between `df` and `du`
+
+| Command | Purpose                                            |
+| ------- | -------------------------------------------------- |
+| df      | Displays filesystem-level disk space usage.        |
+| du      | Estimates the space used by files and directories. |
+
+### 4\. Hostname and IP Address Commands
+
+### 4.1 `hostname`
+
+Definition: Displays the hostname of the current Linux server.
+
+Command:
+
+```bash
+hostname
+```
+
+Example Output:
+
+```text
+ip-172-31-10-20
+```
+
+### 4.2 Set hostname
+
+```bash
+sudo hostname newhostname
+```
+
+### 4.3 `hostname -i`
+
+Definition: Displays the IP address associated with the hostname.
+
+Command:
+
+```bash
+hostname -i
+```
+
+### 4.4 `ifconfig`
+
+Definition: Displays network interface configuration.
+
+Command:
+
+```bash
+ifconfig
+```
+
+### 4.5 `ip a`
+
+Definition: Displays all network interfaces and their IP addresses.
+
+Command:
+
+```bash
+ip a
+```
+
+### 5\. Linux Help and Documentation Commands
+
+Linux provides different commands to understand the usage and functionality of other commands.
+
+### 5.1 `man`
+
+Displays detailed manual documentation.
+
+```bash
+man mkdir
+```
+
+### 5.2 `info`
+
+Displays detailed documentation using the Info system.
+
+```bash
+info mkdir
+```
+
+### 5.3 `--help`
+
+Displays available command options.
+
+```bash
+mkdir --help
+```
+
+### 5.4 `whatis`
+
+Displays a short description of a command.
+
+```bash
+whatis mkdir
+```
+
+### Difference Between Help Commands
+
+| Command | Purpose                       |
+| ------- | ----------------------------- |
+| man     | Detailed manual documentation |
+| info    | Detailed Info documentation   |
+| --help  | Available options and usage   |
+| whatis  | Short command description     |
+
+### 6\. Service Management Commands
+
+### What is a Service?
+
+A service is a background program that performs a specific task in a Linux system.
+
+Examples:
+
+* SSH service
+
+* HTTPD service
+
+* Jenkins service
+
+* MySQL service
+
+When we install software such as Jenkins, it can create a service named `jenkins`.
+
+We can check whether the service is running, start it, stop it, restart it, enable it, or disable it.
+
+### 6.1 `service`
+
+Definition: Used to check and manage services.
+
+Check service status:
+
+```bash
+sudo service sshd status
+```
+
+Start service:
+
+```bash
+sudo service sshd start
+```
+
+Stop service:
+
+```bash
+sudo service sshd stop
+```
+
+Restart service:
+
+```bash
+sudo service sshd restart
+```
+
+### 6.2 `systemctl`
+
+Definition: Used to manage services and other systemd units in Linux.
+
+### Check service status
+
+```bash
+sudo systemctl status sshd
+```
+
+### Start service
+
+```bash
+sudo systemctl start sshd
+```
+
+### Stop service
+
+```bash
+sudo systemctl stop sshd
+```
+
+### Restart service
+
+```bash
+sudo systemctl restart sshd
+```
+
+### Enable service
+
+```bash
+sudo systemctl enable jenkins
+```
+
+Enabling a service means it will automatically start during system boot.
+
+### Disable service
+
+```bash
+sudo systemctl disable jenkins
+```
+
+Disabling a service prevents it from being automatically started at boot.
+
+### List all service unit files
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+### Check HTTPD service status
+
+```bash
+sudo systemctl status httpd
+```
+
+> Note: Service names depend on the installed software and Linux distribution. For example, SSH may be named `sshd` or `ssh`.
+
+### Difference Between Start and Enable
+
+| Command | Meaning                                                |
+| ------- | ------------------------------------------------------ |
+| start   | Starts the service immediately.                        |
+| stop    | Stops the service immediately.                         |
+| restart | Restarts the service.                                  |
+| enable  | Configures the service to start automatically at boot. |
+| disable | Prevents automatic startup at boot.                    |
+
+Important: Normally, managing system services requires root privileges or `sudo`.
+
+### 7\. Process Management Commands
+
+### What is a Process?
+
+A process is a program that is currently running in the operating system.
+
+Examples:
+
+* Browser running
+
+* Terminal running
+
+* Web server running
+
+* Database server running
+
+Process management commands help us monitor, identify, and manage running processes.
+
+### 7.1 `ps`
+
+Definition: Displays currently running processes associated with the current terminal.
+
+Command:
+
+```bash
+ps
+```
+
+### 7.2 `ps -ef`
+
+Definition: Displays all running processes in full-format listing.
+
+Command:
+
+```bash
+ps -ef
+```
+
+It displays:
+
+* User
+
+* Process ID (PID)
+
+* Parent Process ID (PPID)
+
+* CPU-related information
+
+* Start time
+
+* Command
+
+### 7.3 Display a specific process
+
+Syntax:
+
+```bash
+ps -ef | grep process_name
+```
+
+Example:
+
+```bash
+ps -ef | grep ssh
+```
+
+### 7.4 `kill`
+
+Definition: Sends a signal to a process using its Process ID (PID).
+
+Syntax:
+
+```bash
+kill PID
+```
+
+By default, `kill` sends the TERM signal, which requests the process to terminate.
+
+Example:
+
+```bash
+kill 1234
+```
+
+Send a specific signal:
+
+```bash
+kill -9 PID
+```
+
+`-9` sends the SIGKILL signal, which forces process termination.
+
+Display available signals:
+
+```bash
+kill -l
+```
+
+> Note: Always identify the correct PID before terminating a process.
+
+### 7.5 `top`
+
+Definition: Displays real-time system resource and process information.
+
+Command:
+
+```bash
+top
+```
+
+It displays:
+
+* CPU utilization
+
+* Memory utilization
+
+* Running processes
+
+* Process IDs
+
+* User information
+
+* System load average
+
+Press `q` to exit.
+
+### 7.6 `sar`
+
+Definition: System Activity Reporter (SAR) collects and displays system activity information such as CPU, memory, and I/O utilization.
+
+### Install SAR package
+
+For Amazon Linux / supported distributions:
+
+```bash
+sudo dnf install sysstat -y
+```
+
+For Ubuntu:
+
+```bash
+sudo apt install sysstat -y
+```
+
+### Display CPU utilization
+
+```bash
+sar -u 1 5
+```
+
+Here:
+
+* `-u` – Displays CPU utilization.
+
+* `1` – Takes a reading every 1 second.
+
+* `5` – Displays 5 readings.
+
+### Display memory utilization
+
+```bash
+sar -r 1 5
+```
+
+### Display CPU utilization history
+
+```bash
+sar -u
+```
+
+### Practical Situations
+
+* If an application is not working properly, use `top` to check CPU and memory utilization.
+
+* If CPU utilization is very high, identify the process consuming CPU resources.
+
+* If you want to check historical system activity, use `sar`.
+
+### 8\. Archive and Backup Commands
+
+Archive commands are used to compress, extract, and manage files and directories.
+
+### 8.1 `zip`
+
+Definition: Creates compressed archive files.
+
+Syntax:
+
+```bash
+zip archive_name.zip file_name
+```
+
+Compress a file:
+
+```bash
+zip file.zip file.txt
+```
+
+Compress a directory:
+
+```bash
+zip -r devops.zip devops/
+```
+
+Here:
+
+\- `-r` – Recursively includes files and subdirectories.
+
+### 8.2 `unzip`
+
+Definition: Extracts compressed files from a ZIP archive.
+
+Syntax:
+
+```bash
+unzip archive_name.zip
+```
+
+Example:
+
+```bash
+unzip devops.zip
+```
+
+Extract into a specific directory:
+
+```bash
+unzip devops.zip -d backup/
+```
+
+### 8.3 `tar`
+
+Definition: Used to create and extract archive files and can also compress them.
+
+### Create a TAR archive
+
+```bash
+tar -cvf devops.tar devops/
+```
+
+### Create a compressed TAR archive
+
+```bash
+tar -czvf devops.tar.gz devops/
+```
+
+### Extract a TAR archive
+
+```bash
+tar -xvf devops.tar
+```
+
+### Extract a compressed TAR archive
+
+```bash
+tar -xzvf devops.tar.gz
+```
+
+### Understanding TAR Options
+
+| Option | Meaning                  |
+| ------ | ------------------------ |
+| -c     | Create archive           |
+| -x     | Extract archive          |
+| -v     | Display process details  |
+| -f     | Specify archive filename |
+| -z     | Use gzip compression     |
+
+### Difference Between ZIP and TAR
+
+* `zip` creates a compressed ZIP archive.
+
+* `unzip` extracts ZIP archives.
+
+* `tar` combines files and directories into an archive.
+
+* `tar -czvf` creates a gzip-compressed TAR archive.
+
+### Quick Revision – Important Linux Commands
+
+| Command   | Description                              |
+| --------- | ---------------------------------------- |
+| who       | Displays logged-in users                 |
+| w         | Displays users and their activities      |
+| users     | Displays usernames currently logged in   |
+| whoami    | Displays current username                |
+| whereis   | Locates binary, source and manual files  |
+| date      | Displays date and time                   |
+| df -h     | Displays filesystem disk usage           |
+| du -sh    | Displays directory size summary          |
+| hostname  | Displays system hostname                 |
+| ifconfig  | Displays network interface details       |
+| ip a      | Displays IP addresses and interfaces     |
+| man       | Displays manual pages                    |
+| info      | Displays Info documentation              |
+| --help    | Displays command help                    |
+| whatis    | Displays short command description       |
+| service   | Manages services                         |
+| systemctl | Manages systemd services                 |
+| uptime    | Displays system running time             |
+| last      | Displays previous login information      |
+| ps        | Displays processes                       |
+| kill      | Sends a signal to a process              |
+| top       | Monitors running processes and resources |
+| sar       | Reports system activity                  |
+| zip       | Creates ZIP archives                     |
+| unzip     | Extracts ZIP archives                    |
+| tar       | Creates and extracts TAR archives        |
+
+### Practical Tips
+
+* Use `who` to check how many users are currently logged in.
+
+* Use `w` to check what logged-in users are doing.
+
+* Use `whoami` to identify the current user.
+
+* Use `df -h` to check available disk space.
+
+* Use `du -sh` to check the size of a particular directory.
+
+* Use `hostname` to check the server hostname.
+
+* Use `ip a` to find network interface IP addresses.
+
+* Use `uptime` to check how long the server has been running.
+
+* Use `systemctl status` to check service status.
+
+* Use `ps -ef` to display running processes.
+
+* Use `top` to monitor CPU and memory utilization.
+
+* Use `sar` to monitor system activity.
+
+* Use `zip` and `unzip` to compress and extract files.
+
+* Use `tar` to create and extract archive files.

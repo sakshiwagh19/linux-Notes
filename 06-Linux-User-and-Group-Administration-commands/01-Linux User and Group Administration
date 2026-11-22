@@ -1,4 +1,5 @@
-'''# Linux User and Group Administration
+from pathlib import Path
+content = r'''# Linux User and Group Administration
 1. Introduction
 Linux is a multi-user operating system. This means multiple users can have separate accounts and use the same Linux system.
 User: An account used by a person or service to access Linux.
